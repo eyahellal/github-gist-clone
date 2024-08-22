@@ -32,6 +32,9 @@ export default function RegisterScreen() {
       });
       setSubmitting(false);
       console.log("user created")
+      if (auth.user) return <Navigate to="/:userId" />
+
+      
 
       if (!registerResponse.success) {
         const errorCodeSplitted = registerResponse.errors.code.split("-");

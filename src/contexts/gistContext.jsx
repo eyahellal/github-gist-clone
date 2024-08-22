@@ -1,13 +1,17 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { AuthContext } from "./auth";  // Adjust the path to your AuthContext file
+
 
 export const GistContext = createContext({
   mygists:[],
   gists: [],
   users: [],
-  createGist: (value,description)=>{}
+  createGist: (value,description,file)=>{}
 });
 
 export function GistsProvider(props) {
+  const gistContext= useContext(AuthContext);  // Get the current logged-in user
+
   const [gists, setGists] = useState([
     {
       code: `
@@ -94,8 +98,20 @@ on:
       description:"a method for changing objects inside deeply nested dictionaries"
     },
   ]);
+  useEffect(() => {
+    const storedGists = localStorage.getItem("gists");
+    const storedUsers = localStorage.getItem("users");
+
+    if (storedGists) {
+      setGists(JSON.parse(storedGists));
+    }
+
+    if (storedUsers) {
+      setUsers(JSON.parse(storedUsers));
+    }
+  }, []);
   
-  const createGist = (value, description) => {
+  const createGist = (value, description,file) => {
     setGists((prev) => {
       const newGist = {
         id: prev.length > 0 ? prev[prev.length - 1].id + 1 : 1,
@@ -103,7 +119,8 @@ on:
         description: description,
         stars:0,
         forks:0 ,
-        comments:0
+        comments:0,
+        gistName:file
       };
       const updatedGists = [...prev, newGist];
   
@@ -113,7 +130,21 @@ on:
       // Return the updated gists array to update the state
       return updatedGists;
     });
+
+    setUsers((prevUsers) => {
+      const newUser = {
+        username: "eyahellal",
+        userId: 500,
+        gistName: file,
+        creationDate: new Date().toLocaleDateString(), // You can customize the date format
+        description: description,
+      };
+      const updatedUsers = [...prevUsers, newUser];
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      return updatedUsers;
+    });
   };
+  
   
 
   return (
