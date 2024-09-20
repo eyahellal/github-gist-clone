@@ -4,6 +4,8 @@ import Input from "../components/input";
 import { useContext } from "react";
 import { Button } from "../components/button";
 import { AuthContext } from "../contexts/auth";
+import { FaGithub } from "react-icons/fa";
+
 
 export default function RegisterScreen() {
   const authContext = useContext(AuthContext);
@@ -32,7 +34,7 @@ export default function RegisterScreen() {
       });
       setSubmitting(false);
       console.log("user created")
-      if (auth.user) return <Navigate to="/:userId" />
+      if (auth.user) return <Navigate to={`/${auth.user.uid}`} />
 
       
 
@@ -49,11 +51,15 @@ export default function RegisterScreen() {
   });
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center">
-      <div className="border border-gray-100 rounded-sm p-5 w-2/5 flex-col flex items-center gap-4">
+    <div className="w-screen h-screen flex flex-col items-center justify-center gap-5 shrink-0">
+       <FaGithub className="h-20 w-20"/>
+
+<h1 className="text-lg"> Sign up to Github</h1>
+
+      <div className="border border-gray-200/25 rounded-md px-2 py-6 flex-col flex items-center gap-4 bg-custom-blue  md:w-2/5 sm:w-full ">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center gap-2 w-2/3"
+          className="flex flex-col items-center gap-2 md:w-2/3 sm:w-5/6"
         >
           <Input
             id="email"
@@ -99,8 +105,8 @@ export default function RegisterScreen() {
             register
           </Button>
         </form>
-        <Link to="/login" className="text-gray-900 font-medium text-sm">
-          already have an account? <span>Login now</span>
+        <Link to="/login" className="text-gray-400 font-medium text-sm">
+          <span className="text-blue-600 font-light"> already have an account? </span><span>Login now</span>
         </Link>
       </div>
     </div>

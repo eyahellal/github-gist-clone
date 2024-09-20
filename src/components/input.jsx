@@ -1,7 +1,7 @@
 export default function Input(props) {
   return (
-    <div className="flex flex-col items-start gap-1 w-full">
-      <label htmlFor={props.id} className="text-sm text-slate-800 font-medium">
+    <div className="flex flex-col items-start gap-2 w-full">
+      <label htmlFor={props.id} className="text-sm text-white ">
         {props.label}
       </label>
       <input
@@ -10,7 +10,7 @@ export default function Input(props) {
         type={props.type}
         onChange={props.handleChange}
         placeholder={props.placeholder}
-        className="outline-none bg-transparent border border-gray-100 rounded-sm px-2 py-1 w-full"
+        className=" border border-gray-500/25 rounded-md px-2 py-1 w-full !bg-black"
         value={props.email}
       />
       {props.error ? (

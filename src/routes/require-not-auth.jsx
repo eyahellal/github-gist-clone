@@ -4,6 +4,6 @@ import { Navigate } from "react-router-dom";
 
 export default function RequiresNotAuth(props) {
   const auth = useContext(AuthContext)
-  if (auth.user) return <Navigate to="/:userId" />
+  if (auth.user) return <Navigate to={`/${auth.user.uid}`} />
   return <>{props.children}</>
 }

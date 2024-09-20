@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext,  useEffect, useState } from "react";
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore"; // Import `getDoc` and `doc`
 import { auth, db } from "../firebase/firebase";
-import { GistContext}from "./gistContext";
 
 export const AuthContext = createContext({
   user: null,
@@ -26,6 +25,8 @@ export default function AuthProvider(props) {
     });
   }, []);
 
+  console.log(user)
+
   const login = async (email, password) => {
     try {
       // Sign in the user with email and password
@@ -41,12 +42,11 @@ export default function AuthProvider(props) {
       if (userDocSnapshot.exists()) {
         const userData = userDocSnapshot.data();
         
-        // Combine Firebase auth user object with Firestore user data
         const user = {
           uid: authUser.uid,
           email: authUser.email,
           displayName: authUser.displayName,
-          ...userData, // Add Firestore data to the user object
+          ...userData, 
         };
   
         // Update the user state with the combined user object

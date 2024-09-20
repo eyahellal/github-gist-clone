@@ -1,19 +1,18 @@
-import { Link } from "react-router-dom";
 import NavBar from "../components/navbar";
 import Layout from "./layout";
+import GuestNav from "../components/guestNav";
+import NavDetails from "../components/nav-details";
+import { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../contexts/auth";
 
-export default function Home(){
-    return(
-        <Layout>
-            <NavBar>
-            <Link to="/login">
-          <button className="font-semibold  p-1 ">sign in</button>
-        </Link>
-        <Link to="/register">
-          <button className="font-semibold border border-slate-300 p-1  rounded-md">sign up</button>
-        </Link>
+export default function Home() {
+  const auth = useContext(AuthContext);
 
-            </NavBar>
-        </Layout>
-    )
+  return (
+    <Layout>
+      <NavBar >
+        {auth.user !== null ? <NavDetails /> : <GuestNav />}
+      </NavBar>
+    </Layout>
+  );
 }

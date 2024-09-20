@@ -4,6 +4,7 @@ import Input from "../components/input";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/auth";
 import { Button } from "../components/button";
+import { FaGithub } from "react-icons/fa";
 
 export default function LoginScreen() {
   const authContext = useContext(AuthContext);
@@ -38,12 +39,16 @@ export default function LoginScreen() {
   });
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center">
-      <div className="border border-gray-100 rounded-sm p-5 w-2/5 flex-col flex items-center gap-4">
+   
+    <div className=" sm:min w-full md:w-screen h-screen flex flex-col items-center justify-center gap-10 shrink-0 ">
+      <FaGithub className="h-20 w-20"/>
+
+    <h1 className="text-lg"> Sign in to Github</h1>
+
+      <div className=" md:border !border-gray-300/20 rounded-md  md:w-1/5 sm:w-full py-5 px-5  flex-col flex items-center gap-10 bg-custom-blue">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center gap-2 w-2/3"
-        >
+          className="flex flex-col items-center gap-2 md:w-2/3 sm:w-5/6">
           <Input
             id="email"
             name="email"
@@ -53,6 +58,7 @@ export default function LoginScreen() {
             error={errors.email}
             label="Email address"
             placeholder="name@example.com"
+          
           />
           <Input
             id="password"
@@ -68,8 +74,8 @@ export default function LoginScreen() {
             login
           </Button>
         </form>
-        <Link to="/register" className="text-gray-900 font-medium text-sm">
-          you don't have an account? <span>Register now</span>
+        <Link to="/register" className="text-white font-medium text-sm">
+          New to Github? <span className="text-blue-600 font-light">Create an account</span>
         </Link>
       </div>
     </div>

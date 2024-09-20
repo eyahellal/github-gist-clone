@@ -3,6 +3,7 @@ import { FiPlus } from "react-icons/fi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { Link } from "react-router-dom";
+import NavDropdown from "./nav-dropdown";
 
 
 
@@ -16,7 +17,7 @@ export default function NavDetails(){
 
 
         <img src={UserImg} alt="user" className="h-6 w-6" />
-        <IoMdArrowDropdown />
+        <NavDropdown />
 
         </>
     )

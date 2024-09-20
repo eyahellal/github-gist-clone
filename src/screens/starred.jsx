@@ -1,34 +1,32 @@
-import { useContext } from "react";
-import { GistContext } from "../contexts/gistContext";
 import User from "../components/user";
 import GistDetails from "../components/gist-details";
 import Gist from "../components/gist";
+import { useOutletContext } from "react-router-dom";
 
 export default function Starred() {
-  const gistContext = useContext(GistContext);
+  const { gists } = useOutletContext(); 
 
   return (
     <div className="flex flex-col min-h-screen mx-[15%]">
-      {gistContext.gists
+      {gists
         .filter((gist) => gist.stars > 0)
-        .map((gist, index) => (
-          <div key={index} className="grow w-full">
+        .map((gist) => (
+          <div key={gist.id} className="grow w-full">
             <div className="flex justify-between">
               <User
-                key={gistContext.users[index].userId}
-                gistname={gistContext.users[index].gistName}
-                username={gistContext.users[index].username}
-                creationDate={gistContext.users[index].creationDate}
-                description={gistContext.users[index].description}
+                gistname={gist.gistName}
+                username={gist.username}
+                creationDate={gist.creationDate}
+                description={gist.description}
               />
               <GistDetails
                 stars={gist.stars}
                 forks={gist.forks}
                 files={gist.files}
                 comments={gist.comments}
-              />
+                />
             </div>
-            <Gist key={gist.code} code={gist.code} />
+            <Gist code={gist.code} />
           </div>
         ))}
     </div>
